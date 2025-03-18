@@ -46,8 +46,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    GrantedAuthoritiesMapper authenticationConverter(
-            Converter<Map<String, Object>, Collection<GrantedAuthority>> realmRolesAuthoritiesConverter) {
+    GrantedAuthoritiesMapper authenticationConverter(AuthoritiesConverter realmRolesAuthoritiesConverter) {
         return (authorities) -> authorities.stream()
                 .filter(authority -> authority instanceof OidcUserAuthority)
                 .map(OidcUserAuthority.class::cast).map(OidcUserAuthority::getIdToken)
